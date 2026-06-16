@@ -1,0 +1,6 @@
+com\sistema\ferramentas\FerramentasApplication.class
+com\sistema\ferramentas\service\FerramentasService.class
+com\sistema\ferramentas\controller\FerramentasController.class
+com\sistema\ferramentas\model\FerramentasDTO.class
+com\sistema\ferramentas\repository\FerramentasRepository.class
+com\sistema\ferramentas\repository\Conexao.class
