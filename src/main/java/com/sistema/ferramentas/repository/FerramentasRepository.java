@@ -34,26 +34,36 @@ public class FerramentasRepository {
         return 0;
     }
     
-    public List<FerramentasDTO> listaFerramentas() {
-        List<FerramentasDTO> listaFerramentas = new ArrayList<>();
-        try {
-            Connection conn = Conexao.conectar();
-            PreparedStatement stmt = conn.prepareStatement("select * from tb_ferramenta");
-            ResultSet rs = stmt.executeQuery();
+public List<FerramentasDTO> listaFerramentas() {
+    List<FerramentasDTO> listaFerramentas = new ArrayList<>();
 
-            while (rs.next()) {
-                FerramentasDTO ferramentas = new FerramentasDTO();
-                ferramentas.setId_ferramentas(rs.getLong("id"));
-                ferramentas.setNome(rs.getString("nome"));
-                ferramentas.setHorasDeUso(rs.getLong("horasDeUso"));
-                ferramentas.setVidaUtilMaxima(rs.getLong("vidaUtilMaxima"));
-                listaFerramentas.add(ferramentas);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+    try {
+        Connection conn = Conexao.conectar();
+        PreparedStatement stmt = conn.prepareStatement("select * from tb_ferramenta");
+        ResultSet rs = stmt.executeQuery();
+
+        while (rs.next()) {
+
+            System.out.println("DEBUG nome = " + rs.getString("nome"));
+
+            FerramentasDTO f = new FerramentasDTO(
+                rs.getLong("id"),
+                rs.getString("nome"),
+                rs.getLong("horasDeUso"),
+                rs.getLong("vidaUtilMaxima")
+            );
+
+            System.out.println("OBJETO CRIADO = " + f.getNome());
+
+            listaFerramentas.add(f);
         }
-        return listaFerramentas;
+
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
+
+    return listaFerramentas;
+}
     public void deleteById(Long id){
      try {
             Connection conn = Conexao.conectar();
@@ -71,7 +81,7 @@ public class FerramentasRepository {
             stmt.setString(1, ferramenta.getNome());
             stmt.setLong(2, ferramenta.getHorasDeUso());
             stmt.setLong(3, ferramenta.getVidaUtilMaxima());
-            stmt.setLong(4, ferramenta.getId_ferramentas());
+            stmt.setLong(4, ferramenta.getId());
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

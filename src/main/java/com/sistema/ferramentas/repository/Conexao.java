@@ -13,11 +13,11 @@ import java.sql.SQLException;
  * @author Aluno
  */
 public class Conexao {
-    private static final String url = "jdbc:mysql://localhost:3307/db_industrial";
+    private static final String url = "jdbc:mysql://localhost:3306/db_industrial";
     private static final String usuario = "root";
     private static final String senha = "";
     private static Connection conn = null;
-
+    
     private Conexao() {
     }
 
