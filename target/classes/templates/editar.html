@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Editar Produto</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <header>
+<div th:replace="~{fragments/layout :: custom-header}"></div>
+        </header>
+        <main>
+            <h2>Editar Dados</h2>
+            <form th:action="@{/ferramentas/salvar}"th:object="${ferramenta}"method="post">
+            <input type="hidden" th:field="*{id}" />
+            
+            <label>Nome:</label>
+            <input type="text" th:field="*{nome}" /><br>
+            
+            <label>Horas de Uso:</label>
+            <input type="number" th:field="*{horasDeUso}" /><br>
+            
+            <label>Vida Útil Máxima:</label>
+            <input type="number" th:field="*{vidaUtilMaxima}" /><br>
+            
+            <button type="submit">Salvar</button>
+        </form>
+        </main>
+    </body>
+</html>

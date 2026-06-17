@@ -9,26 +9,26 @@ package com.sistema.ferramentas.model;
  * @author Aluno
  */
 public class FerramentasDTO {
-    private Long id;
+    private int id;
     private String nome;
-    private Long horasDeUso;
+    private int horasDeUso;
     private Long vidaUtilMaxima;
 
     public FerramentasDTO() {
     }
 
-    public FerramentasDTO(Long id, String nome, Long horasDeUso, Long vidaUtilMaxima) {
+    public FerramentasDTO(int id, String nome, int horasDeUso, Long vidaUtilMaxima) {
         this.id = id;
         this.nome = nome;
         this.horasDeUso = horasDeUso;
         this.vidaUtilMaxima = vidaUtilMaxima;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -40,11 +40,11 @@ public class FerramentasDTO {
         this.nome = nome;
     }
 
-    public Long getHorasDeUso() {
+    public int getHorasDeUso() {
         return horasDeUso;
     }
 
-    public void setHorasDeUso(Long horasDeUso) {
+    public void setHorasDeUso(int horasDeUso) {
         this.horasDeUso = horasDeUso;
     }
 
@@ -60,6 +60,6 @@ public class FerramentasDTO {
         return 0;
     }
 
-    return (horasDeUso.doubleValue() / vidaUtilMaxima.doubleValue()) * 100;
+    return ((double) horasDeUso / vidaUtilMaxima) * 100;
 }
 }

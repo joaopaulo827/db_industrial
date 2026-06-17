@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -25,14 +26,23 @@ public class FerramentasController {
     private FerramentasService service;
      @GetMapping("/")
     public String home() {
-        return "index";
+        return "redirect:/ferramentas";
     }
     @GetMapping("/ferramentas")
     public String getFerramentas(Model model){
-      List<FerramentasDTO> listaFerramentas =  service.lerTodos();
-      model.addAttribute("listar",listaFerramentas);
+      List<FerramentasDTO> lista =  service.listarFerramentas();
+      model.addAttribute("listar",lista);
       return "ferramentas";
     }
+    @GetMapping("/editar")
+public String editar(@RequestParam int id, Model model) {
+
+    FerramentasDTO ferramenta = service.buscarPorId(id);
+
+    model.addAttribute("ferramenta", ferramenta);
+
+    return "editar";
+}
     @PostMapping("/ferramentas/salvar")
     public String salvarDados(@ModelAttribute FerramentasDTO ferramentas){
     service.atualizar(ferramentas);
