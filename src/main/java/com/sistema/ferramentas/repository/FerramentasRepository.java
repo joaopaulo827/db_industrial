@@ -23,11 +23,13 @@ public class FerramentasRepository {
         int linhas=0;
         try {
             Connection conn = Conexao.conectar();
-            PreparedStatement stmt =conn.prepareStatement("insert into tb_ferramenta (nome, horasDeUso, vidaUtilMaxima) values (?, ?, ?)");
+            PreparedStatement stmt =conn.prepareStatement("insert into tb_ferramenta (nome, horas_uso, vida_util_maxima, status, id_galpao, id_usuario_responsavel) values (?, ?, ?, ?, ?, ?)");
             stmt.setString(1, ferramentas.getNome());
             stmt.setInt(2, ferramentas.getHorasDeUso());
-            stmt.setLong(3, ferramentas.getVidaUtilMaxima());
-
+            stmt.setInt(3, ferramentas.getVidaUtilMaxima());
+            stmt.setString(4, ferramentas.getStatus());
+            stmt.setObject(5, ferramentas.getGalpao());
+            stmt.setObject(6, ferramentas.getResponsavel());
             linhas = stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -46,10 +48,13 @@ public List<FerramentasDTO> listaFerramentas() {
         rs= stmt.executeQuery();
         while (rs.next()) {
             FerramentasDTO ferramenta = new FerramentasDTO();
-            ferramenta.setId(rs.getInt("id"));
+            ferramenta.setId(rs.getLong("id"));
             ferramenta.setNome(rs.getString("nome"));
-            ferramenta.setHorasDeUso(rs.getInt("horasDeUso"));
-            ferramenta.setVidaUtilMaxima(rs.getLong("vidaUtilMaxima"));
+            ferramenta.setHorasDeUso(rs.getInt("horas_uso"));
+            ferramenta.setVidaUtilMaxima(rs.getInt("vida_util_maxima"));
+            ferramenta.setStatus(rs.getString("status"));
+            ferramenta.setGalpao(rs.getObject("id_galpao"));
+            ferramenta.setResponsavel(rs.getObject("id_usuario_responsavel"));
             listaFerramentas.add(ferramenta);
         }
 
@@ -69,17 +74,20 @@ public FerramentasDTO buscarPorId(int id) {
         PreparedStatement stmt =
             conn.prepareStatement("select * from tb_ferramenta where id = ?");
 
-        stmt.setInt(1, id);
+        stmt.setLong(1, id);
 
         ResultSet rs = stmt.executeQuery();
 
         if (rs.next()) {
             ferramenta = new FerramentasDTO();
 
-            ferramenta.setId(rs.getInt("id"));
+            ferramenta.setId(rs.getLong("id"));
             ferramenta.setNome(rs.getString("nome"));
-            ferramenta.setHorasDeUso(rs.getInt("horasDeUso"));
-            ferramenta.setVidaUtilMaxima(rs.getLong("vidaUtilMaxima"));
+            ferramenta.setHorasDeUso(rs.getInt("horas_uso"));
+            ferramenta.setVidaUtilMaxima(rs.getInt("vida_util_maxima"));
+            ferramenta.setStatus(rs.getString("status"));
+            ferramenta.setGalpao(rs.getObject("id_galpao"));
+            ferramenta.setResponsavel(rs.getObject("id_usuario_responsavel"));
         }
 
     } catch (SQLException e) {
@@ -88,12 +96,12 @@ public FerramentasDTO buscarPorId(int id) {
 
     return ferramenta;
 }
-    public int deleteById(int id){
+    public int deleteById(long id){
         int linhas =0;
      try {
             Connection conn = Conexao.conectar();
             PreparedStatement stmt = conn.prepareStatement("delete from tb_ferramenta Where id=?");
-            stmt.setInt(1, id);
+            stmt.setLong(1, id);
             linhas=stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -104,11 +112,14 @@ public FerramentasDTO buscarPorId(int id) {
         int linhas =0;
      try {
             Connection conn = Conexao.conectar();
-            PreparedStatement stmt = conn.prepareStatement("update tb_ferramenta set nome=?, horasDeUso=?, vidaUtilMaxima=? where id=?");
+            PreparedStatement stmt = conn.prepareStatement("update tb_ferramenta set nome=?, horas_uso=?, vida_util_maxima=?,status=?, id_galpao=?, id_usuario_responsavel=? where id=?");
             stmt.setString(1, ferramenta.getNome());
             stmt.setInt(2, ferramenta.getHorasDeUso());
-            stmt.setLong(3, ferramenta.getVidaUtilMaxima());
-            stmt.setInt(4, ferramenta.getId());
+            stmt.setInt(3, ferramenta.getVidaUtilMaxima());
+            stmt.setString(4, ferramenta.getStatus());
+            stmt.setObject(5, ferramenta.getGalpao());
+            stmt.setObject(6, ferramenta.getResponsavel());
+            stmt.setLong(7, ferramenta.getId());
             linhas=stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

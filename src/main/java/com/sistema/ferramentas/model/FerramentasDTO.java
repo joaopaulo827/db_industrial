@@ -9,26 +9,32 @@ package com.sistema.ferramentas.model;
  * @author Aluno
  */
 public class FerramentasDTO {
-    private int id;
+    private Long id;
     private String nome;
     private int horasDeUso;
-    private Long vidaUtilMaxima;
+    private int vidaUtilMaxima;
+    private String status;
+    private Object galpao;
+    private Object responsavel;
 
     public FerramentasDTO() {
     }
 
-    public FerramentasDTO(int id, String nome, int horasDeUso, Long vidaUtilMaxima) {
+    public FerramentasDTO(Long id, String nome, int horasDeUso, int vidaUtilMaxima, String status, Object galpao, Object responsavel) {
         this.id = id;
         this.nome = nome;
         this.horasDeUso = horasDeUso;
         this.vidaUtilMaxima = vidaUtilMaxima;
+        this.status = status;
+        this.galpao = galpao;
+        this.responsavel = responsavel;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -48,15 +54,39 @@ public class FerramentasDTO {
         this.horasDeUso = horasDeUso;
     }
 
-    public Long getVidaUtilMaxima() {
+    public int getVidaUtilMaxima() {
         return vidaUtilMaxima;
     }
 
-    public void setVidaUtilMaxima(Long vidaUtilMaxima) {
+    public void setVidaUtilMaxima(int vidaUtilMaxima) {
         this.vidaUtilMaxima = vidaUtilMaxima;
     }
-    public double getPercentualDesgaste() {
-    if (vidaUtilMaxima == null || vidaUtilMaxima == 0) {
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Object getGalpao() {
+        return galpao;
+    }
+
+    public void setGalpao(Object galpao) {
+        this.galpao = galpao;
+    }
+
+    public Object getResponsavel() {
+        return responsavel;
+    }
+
+    public void setResponsavel(Object responsavel) {
+        this.responsavel = responsavel;
+    }
+        public double getPercentualDesgaste() {
+    if (vidaUtilMaxima == 0 || vidaUtilMaxima == 0) {
         return 0;
     }
 
